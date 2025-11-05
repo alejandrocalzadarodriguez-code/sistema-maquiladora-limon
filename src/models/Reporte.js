@@ -1,27 +1,34 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
 
-const reporteSchema = new mongoose.Schema({
+const Reporte = sequelize.define('Reporte', {
   idRecepcion: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Recepcion',
-    required: true
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'recepcion', // nombre de la tabla relacionada
+      key: 'id'
+    }
   },
   tipo: {
-    type: String,
-    enum: ['Recepción', 'Calidad', 'Inventario'], // puedes ajustar los tipos según tu lógica
-    required: true
+    type: DataTypes.ENUM('Recepción', 'Calidad', 'Inventario'),
+    allowNull: false
   },
   fechaGeneracion: {
-    type: Date,
-    default: Date.now
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
   },
   generadoPor: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Usuario',
-    required: true
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'usuario', // nombre de la tabla relacionada
+      key: 'id'
+    }
   }
 }, {
+  tableName: 'reporte',
   timestamps: true
 });
 
-module.exports = mongoose.model('Reporte', reporteSchema);
+module.exports = Reporte;

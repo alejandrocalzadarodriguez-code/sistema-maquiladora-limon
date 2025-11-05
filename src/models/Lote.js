@@ -1,10 +1,26 @@
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
 
-// Modelo Lote
-const mongoose = require('mongoose');
-const loteSchema = new mongoose.Schema({
-  idProveedor: { type: mongoose.Schema.Types.ObjectId, ref: 'Proveedor' },
-  fechaRecepcion: Date,
-  cantidad: Number,
-  estado: String
+const Lote = sequelize.define('Lote', {
+  idProveedor: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'proveedor', // nombre de la tabla relacionada
+      key: 'id'
+    }
+  },
+  fechaRecepcion: {
+    type: DataTypes.DATE
+  },
+  cantidad: {
+    type: DataTypes.INTEGER
+  },
+  estado: {
+    type: DataTypes.STRING
+  }
+}, {
+  tableName: 'lote',
+  timestamps: false
 });
-module.exports = mongoose.model('Lote', loteSchema);
+
+module.exports = Lote;

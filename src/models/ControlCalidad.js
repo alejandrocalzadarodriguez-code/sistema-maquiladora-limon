@@ -1,12 +1,31 @@
 
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
 
-const controlCalidadSchema = new mongoose.Schema({
-  idLote: { type: mongoose.Schema.Types.ObjectId, ref: 'Lote', required: true },
-  resultado: { type: String, required: true }, // Ejemplo: "Aprobado", "Rechazado"
-  fechaEvaluacion: { type: Date, default: Date.now },
-  evaluador: { type: String, required: true } // Nombre del evaluador
+const ControlCalidad = sequelize.define('ControlCalidad', {
+  idLote: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'lote', // nombre de la tabla relacionada
+      key: 'id'
+    }
+  },
+  resultado: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  fechaEvaluacion: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
+  },
+  evaluador: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+}, {
+  tableName: 'controlcalidad',
+  timestamps: false
 });
 
-module.exports = mongoose.model('ControlCalidad', controlCalidadSchema);
-
+module.exports = ControlCalidad;

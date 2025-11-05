@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const proveedorController = require('../controllers/proveedorController');
+const controller = require('../controllers/proveedorController.js');
 
-router.get('/', proveedorController.getAll);
-router.post('/', proveedorController.create);
-router.get('/:id', proveedorController.getById);
-router.put('/:id', proveedorController.update);
-router.delete('/:id', proveedorController.delete);
+router.get('/', controller.getAll);
+router.post('/', controller.create);
+router.get('/:id', controller.getById);
+router.put('/:id', controller.update);
+router.delete('/:id', controller.delete);
 
 module.exports = router;

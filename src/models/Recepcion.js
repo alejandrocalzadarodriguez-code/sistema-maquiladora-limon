@@ -1,10 +1,29 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
 
-const recepcionSchema = new mongoose.Schema({
-  idLote: { type: mongoose.Schema.Types.ObjectId, ref: 'Lote', required: true },
-  fecha: { type: Date, default: Date.now },
-  responsable: { type: String, required: true },
-  observaciones: { type: String }
+const Recepcion = sequelize.define('Recepcion', {
+  idLote: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'lote', // nombre de la tabla relacionada
+      key: 'id'
+    }
+  },
+  fecha: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
+  },
+  responsable: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  observaciones: {
+    type: DataTypes.STRING // puedes usar TEXT si esperas textos largos
+  }
+}, {
+  tableName: 'recepcion',
+  timestamps: false
 });
 
-module.exports = mongoose.model('Recepcion', recepcionSchema);
+module.exports = Recepcion;

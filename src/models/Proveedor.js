@@ -1,10 +1,22 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
 
-const proveedorSchema = new mongoose.Schema({
-  nombre: String,
-  direccion: String,
-  telefono: String,
-  email: String
+const Proveedor = sequelize.define('Proveedor', {
+  nombre: {
+    type: DataTypes.STRING
+  },
+  direccion: {
+    type: DataTypes.STRING
+  },
+  telefono: {
+    type: DataTypes.STRING
+  },
+  email: {
+    type: DataTypes.STRING
+  }
+}, {
+  tableName: 'proveedor',
+  timestamps: false
 });
 
-module.exports = mongoose.model('Proveedor', proveedorSchema);
+module.exports = Proveedor;

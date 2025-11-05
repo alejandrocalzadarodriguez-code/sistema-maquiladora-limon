@@ -1,12 +1,30 @@
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
 
-const mongoose = require('mongoose');
-
-const inventarioSchema = new mongoose.Schema({
-  idProducto: { type: mongoose.Schema.Types.ObjectId, ref: 'Producto', required: true },
-  cantidad: { type: Number, required: true },
-  ubicacion: { type: String, required: true },
-  fechaActualizacion: { type: Date, default: Date.now }
+const Inventario = sequelize.define('Inventario', {
+  idProducto: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'producto', // nombre de la tabla relacionada
+      key: 'id'
+    }
+  },
+  cantidad: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  ubicacion: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  fechaActualizacion: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
+  }
+}, {
+  tableName: 'inventario',
+  timestamps: false
 });
 
-module.exports = mongoose.model('Inventario', inventarioSchema);
-
+module.exports = Inventario;

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/inventarioController');
+const controller = require('../controllers/inventarioController.js');
 
 router.get('/', controller.getAll);
 router.post('/', controller.create);
