@@ -1,22 +1,20 @@
 const express = require('express');
-const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Usuario = require('../models/Usuario');
 
 const router = express.Router();
 const SECRET = process.env.JWT_SECRET || 'clave_secreta_por_defecto';
 
-// Registro
+// Registro (sin password, usando correo y rol)
 router.post('/register', async (req, res) => {
-  const { nombre, usuario, password, rol } = req.body;
+  const { nombre, correo, rol, usuario_responsable } = req.body;
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
     const nuevoUsuario = await Usuario.create({
       nombre,
-      usuario,
-      password: hashedPassword,
-      rol
+      correo,
+      rol,
+      usuario_responsable
     });
 
     res.status(201).json({ mensaje: 'Usuario registrado', usuario: nuevoUsuario });
@@ -25,19 +23,17 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Login
+// Login (solo por correo)
 router.post('/login', async (req, res) => {
-  const { usuario, password } = req.body;
+  const { correo } = req.body;
 
   try {
-    const usuarioEncontrado = await Usuario.findOne({ where: { usuario } });
+    const usuarioEncontrado = await Usuario.findOne({ where: { correo } });
     if (!usuarioEncontrado) return res.status(404).json({ error: 'Usuario no encontrado' });
 
-    const esValido = await bcrypt.compare(password, usuarioEncontrado.password);
-    if (!esValido) return res.status(401).json({ error: 'Contraseña incorrecta' });
-
+    // Generamos token sin password
     const token = jwt.sign(
-      { id: usuarioEncontrado.id, usuario: usuarioEncontrado.usuario, rol: usuarioEncontrado.rol },
+      { id: usuarioEncontrado.id_usuario, correo: usuarioEncontrado.correo, rol: usuarioEncontrado.rol },
       SECRET,
       { expiresIn: '1h' }
     );

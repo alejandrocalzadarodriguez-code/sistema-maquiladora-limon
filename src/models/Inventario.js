@@ -2,7 +2,12 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 const Inventario = sequelize.define('Inventario', {
-  idProducto: {
+  id_inventario: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  id_producto: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
@@ -18,7 +23,19 @@ const Inventario = sequelize.define('Inventario', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  fechaActualizacion: {
+  fecha_movimiento: {
+    type: DataTypes.DATE,
+    allowNull: true
+  },
+  usuario_responsable: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  fecha_creacion: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
+  },
+  fecha_actualizacion: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW
   }

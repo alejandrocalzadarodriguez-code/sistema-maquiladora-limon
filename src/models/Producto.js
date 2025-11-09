@@ -2,17 +2,38 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 const Producto = sequelize.define('Producto', {
+  id_producto: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
   nombre: {
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
+    allowNull: false
   },
-  unidadMedida: {
-    type: DataTypes.STRING
+  tipo: {
+    type: DataTypes.STRING,
+    allowNull: false
   },
-  categoria: {
-    type: DataTypes.STRING
+  unidad_medida: {
+    type: DataTypes.STRING,
+    allowNull: false
   },
-  precioUnitario: {
-    type: DataTypes.FLOAT
+  precio: {
+    type: DataTypes.DECIMAL(10, 2),
+    allowNull: false
+  },
+  usuario_responsable: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  fecha_creacion: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
+  },
+  fecha_actualizacion: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
   }
 }, {
   tableName: 'producto',

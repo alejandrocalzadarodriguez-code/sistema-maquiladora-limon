@@ -2,24 +2,30 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 const Recepcion = sequelize.define('Recepcion', {
-  idLote: {
+  id_recepcion: {
     type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'lote', // nombre de la tabla relacionada
-      key: 'id'
-    }
+    primaryKey: true,
+    autoIncrement: true
   },
   fecha: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW
   },
-  responsable: {
+  estado: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  observaciones: {
-    type: DataTypes.STRING // puedes usar TEXT si esperas textos largos
+  usuario_responsable: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  fecha_creacion: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
+  },
+  fecha_actualizacion: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
   }
 }, {
   tableName: 'recepcion',
