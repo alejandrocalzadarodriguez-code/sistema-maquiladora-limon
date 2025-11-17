@@ -59,6 +59,88 @@ npm start
 - **Autenticación**: Usa JWT para proteger rutas. Middleware en `middlewares/auth.js`.
 - **Base de datos**: Configuración en `src/config/database.js`. Ejecuta `sequelize.sync()` para sincronizar modelos.
 
+
+## ⚠️ Consideraciones para la Ejecución
+## Para correr y probar esta aplicación, asegúrate de cumplir con los siguientes puntos:
+## 1. Tecnologías requeridas
+
+Node.js (v18+) y npm instalados.
+Git para clonar el repositorio.
+
+## Instalación en Windows:
+
+Descarga Node.js desde nodejs.org (versión LTS recomendada).
+Ejecuta el instalador, acepta la licencia y verifica la instalación:
+
+node -v
+
+## Para Git:
+
+Descarga desde git-scm.com.
+Instala y verifica:
+
+git --version
+
+## 2. Base de datos local
+## Debes tener PostgreSQL instalado y preferentemente administrado con pgAdmin.
+
+## Instalación:
+
+Descarga desde postgresql.org.
+Instala PostgreSQL Server y pgAdmin 4.
+Configura la contraseña del usuario postgres (recomendado: root para coincidir con .env).
+Puerto por defecto: 5432.
+
+## Acceso con pgAdmin:
+
+Abre pgAdmin, conecta el servidor y usa la contraseña definida.
+Crea la base de datos maquiladora_limon.
+
+
+## 3. Configuración de la base de datos
+
+Importa el script SQL desde el enlace:
+Backup maquiladora_limon.sql
+En pgAdmin:
+
+Abre Query Tool, carga el archivo .sql y ejecuta.
+
+
+## Verifica que las tablas y datos se hayan creado.
+
+
+## 4. Ejecución del sistema
+
+Clona el repositorio:
+
+git clone https://github.com/tu-usuario/sistema-maquiladora-limon.git
+cd sistema-maquiladora-limonnpm install
+
+Si seguiste los pasos anteriores, no necesitas modificar .env.
+Ejecuta:
+
+npm start
+
+## 5. Pruebas con Postman
+Usa Postman para probar los endpoints REST:
+## Registro de usuario
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+## Login
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+## Consulta de proveedores
+GET http://localhost:3000/api/proveedores/
+
+## Registro de productos
+POST http://localhost:3000/api/productos/
+Content-Type: application/json
+
+## Consulta de productos
+GET http://localhost:3000/api/pr
+
 ## 🛠 Dependencias principales
 - express
 - sequelize
