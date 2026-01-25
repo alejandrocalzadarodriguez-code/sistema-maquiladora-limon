@@ -12,7 +12,7 @@ const Lote = sequelize.define('Lote', {
     allowNull: false,
     references: {
       model: 'proveedor', // nombre de la tabla relacionada
-      key: 'id'
+      key: 'id_proveedor'
     }
   },
   fecha_recepcion: {

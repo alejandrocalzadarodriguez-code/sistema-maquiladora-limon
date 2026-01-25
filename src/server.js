@@ -1,9 +1,17 @@
 // server.js - Servidor Express con PostgreSQL y dotenv
 require('dotenv').config();
+
 const express = require('express');
+
+const cors = require('cors');
+
+
 const sequelize = require('./config/database'); // Archivo de configuración Sequelize
 const app = express();
-
+// -----------------------------
+//  CORS CONFIG
+// -----------------------------
+app.use(cors());
 //  Imprimir variables de entorno cargadas
 console.log('Variables de entorno cargadas:');
 console.log({
